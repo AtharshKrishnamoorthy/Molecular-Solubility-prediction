@@ -1,6 +1,5 @@
 # Molecular Solubility Prediction Web App
 
-## Demo
 
 ### Example Screenshots
 
