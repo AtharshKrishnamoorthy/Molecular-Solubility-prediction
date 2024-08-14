@@ -4,10 +4,10 @@
 
 ### Example Screenshots
 
-![Screenshot 1](images/Screenshot_2024-05-22_150537.png)
-![Screenshot 2](images/Screenshot_2024-05-22_151030.png)
-![Screenshot 3](images/Screenshot_2024-05-22_151430.png)
-![Screenshot 4](images/Screenshot_2024-05-22_151855.png)
+![Screenshot 1]([images/Screenshot_2024-05-22_150537.png](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20150537.png))
+![Screenshot 2]([images/Screenshot_2024-05-22_151030.png](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20151030.png))
+![Screenshot 3]([images/Screenshot_2024-05-22_151430.png](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20151430.png))
+![Screenshot 4]([images/Screenshot_2024-05-22_151855.png](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20151855.png))
 
 
 ## Table of Contents
