@@ -1,8 +1,13 @@
 # Molecular Solubility Prediction Web App
 
-## Image
+## Demo
 
-[![Molecular Solubility Prediction Demo](D:\Projects\Molecular Solubility Prediction\Screenshot 2024-05-22 150537.png)(D:\Projects\Molecular Solubility Prediction\Screenshot 2024-05-22 151030.png)(D:\Projects\Molecular Solubility Prediction\Screenshot 2024-05-22 151430.png)(D:\Projects\Molecular Solubility Prediction\Screenshot 2024-05-22 151855.png)
+### Example Screenshots
+
+![Screenshot 1](images/Screenshot_2024-05-22_150537.png)
+![Screenshot 2](images/Screenshot_2024-05-22_151030.png)
+![Screenshot 3](images/Screenshot_2024-05-22_151430.png)
+![Screenshot 4](images/Screenshot_2024-05-22_151855.png)
 
 
 ## Table of Contents
