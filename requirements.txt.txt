@@ -1,0 +1,7 @@
+streamlit
+pandas
+numpy
+rdkit
+scikit-learn
+altair
+Pillow
