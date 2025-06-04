@@ -135,10 +135,4 @@ Please update tests as appropriate and adhere to the project's coding standards.
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## Contact
 
-If you have any questions, feel free to reach out:
-
-- Project Maintainer: Atharsh K
-- Email: atharshkrishnamoorthy@gmail.com
-- Project Link: [GitHub Repository](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-Prediction)
