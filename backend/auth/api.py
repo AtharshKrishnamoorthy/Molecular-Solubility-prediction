@@ -1,7 +1,11 @@
+import sys
+import pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
-from main import signup_user, signin_user
+from auth.main import signup_user, signin_user
 
 app = FastAPI(title="Auth API")
 
