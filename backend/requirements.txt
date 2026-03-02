@@ -1,0 +1,17 @@
+streamlit
+pandas
+numpy
+rdkit
+scikit-learn
+altair
+Pillow
+fastapi
+uvicorn
+slowapi
+supabase
+pubchempy
+sqlalchemy
+python-dotenv 
+psycopg2
+supabase
+pydantic[email]
