@@ -1,138 +1,115 @@
-# Molecular Solubility Prediction Web App
+# MolSol — Molecular Solubility Prediction
 
+Predict aqueous solubility (LogS) of molecules from SMILES notation. Built with Next.js, FastAPI, RDKit, and Supabase.
 
-### Example Screenshots
+Access it here - https://molecular-solubility-prediction-fqj.vercel.app/
 
-![Screenshot 1](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20150537.png)
-![Screenshot 2](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20151030.png)
-![Screenshot 3](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20151430.png)
-![Screenshot 4](https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction/blob/main/images/Screenshot%202024-05-22%20151855.png)
+---
 
+## Architecture
 
-## Table of Contents
+```mermaid
+flowchart TD
+    A[Browser\nNext.js :3000] -->|predict SMILES| B[ML API\nFastAPI :8000]
+    A -->|signup / signin| C[Auth API\nFastAPI :8001]
+    A -->|analytics & history| D[Dashboard API\nFastAPI :8002]
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Model Training](#model-training)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+    B -->|RDKit + RandomForest| B
+    C -->|Supabase Auth| E[(Supabase\nPostgres :6543)]
+    D -->|SQLAlchemy| E
 
-## Features
+    subgraph backend[Backend — /backend]
+        B
+        C
+        D
+    end
+```
 
-The Molecular Solubility Prediction Web App provides the following features:
+---
 
-1. **SMILES Input**: Enter SMILES strings of molecules to calculate their descriptors.
-2. **Descriptor Calculation**: Automatically compute molecular descriptors such as LogP, Molecular Weight, Number of Rotatable Bonds, and Aromatic Proportion.
-3. **Prediction**: Predict the solubility (LogS) values using a pre-trained machine learning model.
-4. **Visualization**: Analyze and visualize the results with histograms and scatter plots.
-5. **Custom Prediction**: Input custom descriptor values using sliders to get predictions for new compounds.
-6. **Solubility Classification**: Classify predicted LogS values into solubility classes (Poorly Soluble, Moderately Soluble, Highly Soluble).
+## Stack
 
-## Prerequisites
+| Layer      | Tech                                       |
+| ---------- | ------------------------------------------ |
+| Frontend   | Next.js 15, React 19, Tailwind v4, shadcn/ui |
+| ML API     | FastAPI, scikit-learn, RDKit, PubChemPy    |
+| Auth API   | FastAPI, Supabase Python client            |
+| Dashboard  | FastAPI, SQLAlchemy, psycopg2              |
+| Database   | Supabase PostgreSQL (pooler port 6543)     |
 
-Before you begin, ensure you have met the following requirements:
+---
 
-- Python 3.7+
-- Streamlit
-- Pandas
-- NumPy
-- RDKit
-- Scikit-learn
-- Altair
-- Pillow (PIL)
-- Pickle
+## Local Setup
 
-## Installation
+### 1. Clone
 
-1. Clone the repository:
+```bash
+git clone https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-prediction
+cd Molecular-Solubility-prediction
+```
 
-    ```bash
-    git clone https://github.com/AtharshKrishnamoorthy/Molecular-Solubility-Prediction
-    cd Molecular-Solubility-Prediction
-    ```
+### 2. Backend
 
-2. Install the required packages:
+```bash
+cd backend
+python -m venv .venv && source .venv/Scripts/activate  # Windows
+pip install -r requirements.txt
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+# Copy and fill env
+cp .env.example .env
+```
 
-3. Download or create the pre-trained model file (`solubility_model.pkl`) and place it in the project directory.
+Start each API in a separate terminal:
 
-## Usage
+```bash
+# ML API — http://localhost:8000
+uvicorn api:app --reload --port 8000
 
-To run the Molecular Solubility Prediction Web App:
+# Auth API — http://localhost:8001
+uvicorn auth.api:app --reload --port 8001
 
-1. Navigate to the project directory.
-2. Run the Streamlit app:
+# Dashboard API — http://localhost:8002
+uvicorn dashboard.api:app --reload --port 8002
+```
 
-    ```bash
-    streamlit run app.py
-    ```
+### 3. Frontend
 
-3. Open your web browser and go to `http://localhost:8501` (or the address provided in the terminal).
+```bash
+cd frontend
+npm install
+```
 
-### SMILES Input
+Create `frontend/.env.local`:
 
-1. Enter SMILES strings in the sidebar text area.
-2. Press "Enter" to input the data.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_AUTH_API_URL=http://localhost:8001
+NEXT_PUBLIC_DASHBOARD_API_URL=http://localhost:8002
+```
 
-### Descriptor Calculation
+```bash
+npm run dev   # http://localhost:3000
+```
 
-1. The app will automatically compute molecular descriptors for the provided SMILES strings.
+---
 
-### Prediction
+## Backend `.env` Variables
 
-1. View the computed descriptors and predicted LogS values.
-2. Use the interactive charts to analyze the results.
+```env
+USER=postgres.<project-ref>
+PASSWORD=<your-db-password>
+HOST=aws-0-<region>.pooler.supabase.com
+PORT=6543
+DBNAME=postgres
+SUPABASE_URL=https://<project-ref>.supabase.co
+SUPABASE_ANON_KEY=<anon-key>
+```
 
-### Custom Prediction
-
-1. Use the sliders in the sidebar to input custom descriptor values.
-2. Click the "Predict" button to get predictions for the custom input.
-
-## Model Training
-
-The model was trained using various machine learning algorithms, including:
-
-- Linear Regression
-- Ridge Regression
-- Lasso Regression
-- Decision Tree Regressor
-- Random Forest Regressor
-
-The Random Forest Regressor with 100 estimators was selected as the final model based on performance metrics.
-
-### Training Steps:
-
-1. **Load Dataset**: Download and load the dataset from the given URL.
-2. **Preprocess Data**: Split data into training and testing sets.
-3. **Train Models**: Fit various models to the training data.
-4. **Evaluate Models**: Calculate and compare mean squared error for each model.
-5. **Save Final Model**: Save the best-performing model using `joblib`.
-
-## Configuration
-
-Ensure you have the required environment setup for running the app. Modify `app.py` as needed for additional configurations.
-
-## Contributing
-
-Contributions are welcome! Here's how you can contribute:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature-branch-name`.
-3. Make your changes and commit them: `git commit -m 'Add some feature'`.
-4. Push to the original branch: `git push origin feature-branch-name`.
-5. Create a pull request.
-
-Please update tests as appropriate and adhere to the project's coding standards.
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+MIT
+
 
 
